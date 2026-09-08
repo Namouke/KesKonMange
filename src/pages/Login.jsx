@@ -1,15 +1,14 @@
 
 import { useState } from 'react'
 
-function Login() {
+function Login( { onLogin }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [message, setMessage] = useState('')
 
   function handleSubmit(event) {
   event.preventDefault()
 
-  setMessage(`Connexion simulée pour ${email}`)
+  onLogin()
 }
 
   return (
@@ -37,7 +36,6 @@ function Login() {
 
         <button type="submit">Se connecter</button>
       </form>
-      {message && <p>{message}</p>}
     </main>
   )
 }
