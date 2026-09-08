@@ -10,7 +10,15 @@ function App() {
     setIsLoggedIn(true)
   }
 
-  return isLoggedIn ? <Home /> : <Login onLogin={handleLogin} />
+  function handleLogout() {
+  setIsLoggedIn(false);
+}
+
+  return isLoggedIn ? (
+  <Home onLogout={handleLogout} />
+) : (
+  <Login onLogin={handleLogin} />
+)
 }
 
 export default App
