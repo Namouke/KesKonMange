@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./ShoppingList.css";
 
 function ShoppingList() {
   const [newItem, setNewItem] = useState("");
@@ -53,7 +54,7 @@ function ShoppingList() {
   }, [completedItems]);
 
   return (
-    <section>
+    <section className="shopping-list">
       <h2>Liste de courses</h2>
       <input
         type="text"

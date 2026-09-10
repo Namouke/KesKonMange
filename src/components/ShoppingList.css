@@ -1,0 +1,21 @@
+.shopping-list {
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+}
+
+.shopping-list ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.shopping-list li {
+  margin-bottom: 8px;
+}
+
+.shopping-list li label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
