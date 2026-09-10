@@ -1,24 +1,27 @@
-
-import { useState } from 'react'
-import Home from './pages/Home'
-import Login from './pages/Login'
+import { useState } from "react";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true",
+  );
 
   function handleLogin() {
-    setIsLoggedIn(true)
+    setIsLoggedIn(true);
+    localStorage.setItem("isLoggedIn", "true");
   }
 
   function handleLogout() {
-  setIsLoggedIn(false);
-}
+    setIsLoggedIn(false);
+    localStorage.removeItem("isLoggedIn");
+  }
 
   return isLoggedIn ? (
-  <Home onLogout={handleLogout} />
-) : (
-  <Login onLogin={handleLogin} />
-)
+    <Home onLogout={handleLogout} />
+  ) : (
+    <Login onLogin={handleLogin} />
+  );
 }
 
-export default App
+export default App;
