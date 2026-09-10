@@ -12,7 +12,8 @@ function ShoppingList() {
     return savedCompletedItems ? JSON.parse(savedCompletedItems) : [];
   });
 
-  function handleAddItem() {
+  function handleAddItem(event) {
+    event.preventDefault();
     if (newItem.trim() === "") {
       return;
     }
@@ -56,15 +57,15 @@ function ShoppingList() {
   return (
     <section className="shopping-list">
       <h2>Liste de courses</h2>
-      <input
-        type="text"
-        placeholder="Ajouter un article"
-        value={newItem}
-        onChange={(event) => setNewItem(event.target.value)}
-      />
-      <button type="button" onClick={handleAddItem}>
-        Ajouter
-      </button>
+      <form onSubmit={handleAddItem}>
+        <input
+          type="text"
+          placeholder="Ajouter un article"
+          value={newItem}
+          onChange={(event) => setNewItem(event.target.value)}
+        />
+        <button type="submit">Ajouter</button>
+      </form>
       <ul>
         {items.map((item, index) => (
           <li key={`${item}-${index}`}>
