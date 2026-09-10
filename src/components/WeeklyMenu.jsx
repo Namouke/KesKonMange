@@ -30,6 +30,16 @@ function WeeklyMenu() {
     localStorage.setItem("menus", JSON.stringify(menus));
   }, [menus]);
 
+  function handleClearMenus() {
+    const shouldClear = window.confirm(
+      "Voulez-vous vraiment effacer tous les menus ?",
+    );
+
+    if (shouldClear) {
+      setMenus({});
+    }
+  }
+
   return (
     <section>
       <h2>Menus de la semaine</h2>
@@ -61,6 +71,9 @@ function WeeklyMenu() {
           </label>
         </article>
       ))}
+      <button type="button" onClick={handleClearMenus}>
+        Effacer tous les menus
+      </button>
     </section>
   );
 }
