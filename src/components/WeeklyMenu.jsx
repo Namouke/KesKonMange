@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./WeeklyMenu.css";
 
 function WeeklyMenu() {
   const days = [
@@ -41,7 +42,7 @@ function WeeklyMenu() {
   }
 
   return (
-    <section>
+    <section className="weekly-menu">
       <h2>Menus de la semaine</h2>
 
       {days.map((day) => (

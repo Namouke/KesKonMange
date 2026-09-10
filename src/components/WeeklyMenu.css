@@ -1,0 +1,17 @@
+.weekly-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weekly-menu article {
+  padding: 12px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+}
+
+.weekly-menu label {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
