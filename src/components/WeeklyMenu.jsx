@@ -41,13 +41,31 @@ function WeeklyMenu() {
     }
   }
 
+  const currentDate = new Date().toLocaleDateString("fr-FR");
+
+  function getDayDate(index) {
+    const today = new Date();
+    const currentDay = today.getDay();
+    const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
+
+    const date = new Date(today);
+    date.setDate(today.getDate() + mondayOffset + index);
+
+    return date.toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "2-digit",
+    });
+  }
+
   return (
     <section className="weekly-menu">
       <h2>Menus de la semaine</h2>
-
-      {days.map((day) => (
+      <p>Aujourd’hui : {currentDate}</p>
+      {days.map((day, index) => (
         <article key={day}>
-          <h3>{day}</h3>
+          <h3>
+            {day} — {getDayDate(index)}
+          </h3>
           <label>
             Midi :
             <input
