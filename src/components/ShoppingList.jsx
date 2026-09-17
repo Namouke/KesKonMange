@@ -72,6 +72,7 @@ function ShoppingList() {
         />
         <button type="submit">Ajouter</button>
       </form>
+      {items.length === 0 && <p>La liste de courses est vide.</p>}
       <ul>
         {items.map((item, index) => (
           <li key={`${item}-${index}`}>
@@ -94,9 +95,11 @@ function ShoppingList() {
           </li>
         ))}
       </ul>
-      <button type="button" onClick={handleClearList}>
-        Vider la liste
-      </button>
+      {items.length > 0 && (
+        <button type="button" onClick={handleClearList}>
+          Vider la liste
+        </button>
+      )}
     </section>
   );
 }
