@@ -15,3 +15,8 @@
   gap: 8px;
   margin-bottom: 8px;
 }
+
+.weekly-menu .current-day {
+  border-color: #666666;
+  background-color: #f5f5f5;
+}

@@ -42,6 +42,8 @@ function WeeklyMenu() {
   }
 
   const currentDate = new Date().toLocaleDateString("fr-FR");
+  const currentDay = new Date().getDay();
+  const currentDayIndex = currentDay === 0 ? 6 : currentDay - 1;
 
   function getDayDate(index) {
     const today = new Date();
@@ -62,7 +64,10 @@ function WeeklyMenu() {
       <h2>Menus de la semaine</h2>
       <p>Aujourd’hui : {currentDate}</p>
       {days.map((day, index) => (
-        <article key={day}>
+        <article
+          key={day}
+          className={index === currentDayIndex ? "current-day" : ""}
+        >
           <h3>
             {day} — {getDayDate(index)}
           </h3>
