@@ -54,9 +54,15 @@ function ShoppingList() {
     );
   }, [completedItems]);
 
+  const completedCount = completedItems.length;
+
   return (
     <section className="shopping-list">
       <h2>Liste de courses</h2>
+      <p>
+        {completedCount} article{completedCount > 1 ? "s" : ""} acheté
+        {completedCount > 1 ? "s" : ""} sur {items.length}
+      </p>
       <form onSubmit={handleAddItem}>
         <input
           type="text"
