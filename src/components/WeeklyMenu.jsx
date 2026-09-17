@@ -59,6 +59,10 @@ function WeeklyMenu() {
     });
   }
 
+  const hasMenus = Object.values(menus).some(
+    (dayMenus) => dayMenus.midi?.trim() || dayMenus.soir?.trim(),
+  );
+
   return (
     <section className="weekly-menu">
       <h2>Menus de la semaine</h2>
@@ -95,9 +99,11 @@ function WeeklyMenu() {
           </label>
         </article>
       ))}
-      <button type="button" onClick={handleClearMenus}>
-        Effacer tous les menus
-      </button>
+      {hasMenus && (
+        <button type="button" onClick={handleClearMenus}>
+          Effacer tous les menus
+        </button>
+      )}
     </section>
   );
 }
