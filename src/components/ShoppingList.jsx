@@ -83,11 +83,7 @@ function ShoppingList() {
                 onChange={() => handleToggleItem(index)}
               />
               <span
-                style={{
-                  textDecoration: completedItems.includes(index)
-                    ? "line-through"
-                    : "none",
-                }}
+                className={completedItems.includes(index) ? "completed" : ""}
               >
                 {item}
               </span>

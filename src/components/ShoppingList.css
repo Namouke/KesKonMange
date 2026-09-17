@@ -19,3 +19,7 @@
   align-items: center;
   gap: 8px;
 }
+
+.shopping-list .completed {
+  text-decoration: line-through;
+}
