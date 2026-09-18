@@ -12,16 +12,52 @@ function WeeklyMenu() {
     "Dimanche",
   ];
 
+  const [weekOffset, setWeekOffset] = useState(0);
+
   const [menus, setMenus] = useState(() => {
     const savedMenus = localStorage.getItem("menus");
     return savedMenus ? JSON.parse(savedMenus) : {};
   });
 
+  function getDayDateObject(index) {
+    const today = new Date();
+    const currentDay = today.getDay();
+    const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
+
+    const date = new Date(today);
+    date.setDate(today.getDate() + mondayOffset + index + weekOffset * 7);
+
+    return date;
+  }
+
+  function getMenuKey(day) {
+    const dayIndex = days.indexOf(day);
+    const date = getDayDateObject(dayIndex);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const dayNumber = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${dayNumber}`;
+  }
+
+  function getMenuValue(day, meal) {
+    const menuKey = getMenuKey(day);
+
+    return (
+      menus[menuKey]?.[meal] ??
+      (weekOffset === 0 ? menus[day]?.[meal] : "") ??
+      ""
+    );
+  }
+
   function handleMenuChange(day, meal, value) {
+    const menuKey = getMenuKey(day);
+
     setMenus({
       ...menus,
-      [day]: {
-        ...menus[day],
+      [menuKey]: {
+        ...menus[menuKey],
         [meal]: value,
       },
     });
@@ -33,11 +69,21 @@ function WeeklyMenu() {
 
   function handleClearMenus() {
     const shouldClear = window.confirm(
-      "Voulez-vous vraiment effacer tous les menus ?",
+      "Voulez-vous vraiment effacer les menus de cette semaine ?",
     );
 
     if (shouldClear) {
-      setMenus({});
+      const updatedMenus = { ...menus };
+
+      days.forEach((day) => {
+        delete updatedMenus[getMenuKey(day)];
+
+        if (weekOffset === 0) {
+          delete updatedMenus[day];
+        }
+      });
+
+      setMenus(updatedMenus);
     }
   }
 
@@ -46,31 +92,53 @@ function WeeklyMenu() {
   const currentDayIndex = currentDay === 0 ? 6 : currentDay - 1;
 
   function getDayDate(index) {
-    const today = new Date();
-    const currentDay = today.getDay();
-    const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
-
-    const date = new Date(today);
-    date.setDate(today.getDate() + mondayOffset + index);
-
-    return date.toLocaleDateString("fr-FR", {
+    return getDayDateObject(index).toLocaleDateString("fr-FR", {
       day: "2-digit",
       month: "2-digit",
     });
   }
 
-  const hasMenus = Object.values(menus).some(
-    (dayMenus) => dayMenus.midi?.trim() || dayMenus.soir?.trim(),
-  );
+  const hasMenus = days.some((day) => {
+    const menuKey = getMenuKey(day);
+    const dayMenus =
+      menus[menuKey] ?? (weekOffset === 0 ? menus[day] : undefined);
+
+    return dayMenus?.midi?.trim() || dayMenus?.soir?.trim();
+  });
+
+  function handlePreviousWeek() {
+    setWeekOffset(weekOffset - 1);
+  }
+
+  function handleNextWeek() {
+    setWeekOffset(weekOffset + 1);
+  }
+
+  function handleCurrentWeek() {
+    setWeekOffset(0);
+  }
 
   return (
     <section className="weekly-menu">
       <h2>Menus de la semaine</h2>
+      <div>
+        <button type="button" onClick={handlePreviousWeek}>
+          Semaine précédente
+        </button>
+        <button type="button" onClick={handleCurrentWeek}>
+          Semaine actuelle
+        </button>
+        <button type="button" onClick={handleNextWeek}>
+          Semaine suivante
+        </button>
+      </div>
       <p>Aujourd’hui : {currentDate}</p>
       {days.map((day, index) => (
         <article
           key={day}
-          className={index === currentDayIndex ? "current-day" : ""}
+          className={
+            weekOffset === 0 && index === currentDayIndex ? "current-day" : ""
+          }
         >
           <h3>
             {day} — {getDayDate(index)}
@@ -80,7 +148,7 @@ function WeeklyMenu() {
             <input
               type="text"
               placeholder="Ajouter un menu"
-              value={menus[day]?.midi || ""}
+              value={getMenuValue(day, "midi")}
               onChange={(event) =>
                 handleMenuChange(day, "midi", event.target.value)
               }
@@ -91,7 +159,7 @@ function WeeklyMenu() {
             <input
               type="text"
               placeholder="Ajouter un menu"
-              value={menus[day]?.soir || ""}
+              value={getMenuValue(day, "soir")}
               onChange={(event) =>
                 handleMenuChange(day, "soir", event.target.value)
               }
@@ -101,7 +169,7 @@ function WeeklyMenu() {
       ))}
       {hasMenus && (
         <button type="button" onClick={handleClearMenus}>
-          Effacer tous les menus
+          Effacer les menus de cette semaine
         </button>
       )}
     </section>
