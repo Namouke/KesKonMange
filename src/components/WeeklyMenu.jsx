@@ -87,7 +87,6 @@ function WeeklyMenu() {
     }
   }
 
-  const currentDate = new Date().toLocaleDateString("fr-FR");
   const currentDay = new Date().getDay();
   const currentDayIndex = currentDay === 0 ? 6 : currentDay - 1;
 
@@ -118,10 +117,13 @@ function WeeklyMenu() {
     setWeekOffset(0);
   }
 
+  const weekStart = getDayDateObject(0).toLocaleDateString("fr-FR");
+  const weekEnd = getDayDateObject(6).toLocaleDateString("fr-FR");
+
   return (
     <section className="weekly-menu">
       <h2>Menus de la semaine</h2>
-      <div>
+      <div className="week-navigation">
         <button type="button" onClick={handlePreviousWeek}>
           Semaine précédente
         </button>
@@ -132,7 +134,9 @@ function WeeklyMenu() {
           Semaine suivante
         </button>
       </div>
-      <p>Aujourd’hui : {currentDate}</p>
+      <p>
+        Semaine du {weekStart} au {weekEnd}
+      </p>
       {days.map((day, index) => (
         <article
           key={day}
