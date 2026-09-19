@@ -1,14 +1,32 @@
 import { useEffect, useState } from "react";
 import "./ShoppingList.css";
 
-function ShoppingList() {
+function getWeekKey(weekOffset) {
+  const today = new Date();
+  const currentDay = today.getDay();
+  const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
+
+  const monday = new Date(today);
+  monday.setDate(today.getDate() + mondayOffset + weekOffset * 7);
+
+  const year = monday.getFullYear();
+  const month = String(monday.getMonth() + 1).padStart(2, "0");
+  const day = String(monday.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function ShoppingList({ weekOffset }) {
+  const weekKey = getWeekKey(weekOffset);
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState(() => {
-    const savedItems = localStorage.getItem("shoppingItems");
+    const savedItems = localStorage.getItem(`shoppingItems-${weekKey}`);
     return savedItems ? JSON.parse(savedItems) : [];
   });
   const [completedItems, setCompletedItems] = useState(() => {
-    const savedCompletedItems = localStorage.getItem("completedShoppingItems");
+    const savedCompletedItems = localStorage.getItem(
+      `completedShoppingItems-${weekKey}`,
+    );
     return savedCompletedItems ? JSON.parse(savedCompletedItems) : [];
   });
 
@@ -44,15 +62,15 @@ function ShoppingList() {
   }
 
   useEffect(() => {
-    localStorage.setItem("shoppingItems", JSON.stringify(items));
-  }, [items]);
+    localStorage.setItem(`shoppingItems-${weekKey}`, JSON.stringify(items));
+  }, [items, weekKey]);
 
   useEffect(() => {
     localStorage.setItem(
-      "completedShoppingItems",
+      `completedShoppingItems-${weekKey}`,
       JSON.stringify(completedItems),
     );
-  }, [completedItems]);
+  }, [completedItems, weekKey]);
 
   const completedCount = completedItems.length;
 

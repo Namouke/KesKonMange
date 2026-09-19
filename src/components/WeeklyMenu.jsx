@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./WeeklyMenu.css";
 
-function WeeklyMenu() {
+function WeeklyMenu({ weekOffset, setWeekOffset }) {
   const days = [
     "Lundi",
     "Mardi",
@@ -11,8 +11,6 @@ function WeeklyMenu() {
     "Samedi",
     "Dimanche",
   ];
-
-  const [weekOffset, setWeekOffset] = useState(0);
 
   const [menus, setMenus] = useState(() => {
     const savedMenus = localStorage.getItem("menus");
