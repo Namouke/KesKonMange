@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import "./ShoppingList.css";
+import { formatDateKey } from "../utiles/weekUtils";
 
 function ShoppingList() {
+  const todayKey = formatDateKey(new Date());
   const [newItem, setNewItem] = useState("");
   const [startDate, setStartDate] = useState(
     () => localStorage.getItem("shoppingStartDate") || "",
@@ -18,6 +20,16 @@ function ShoppingList() {
     const savedCompletedItems = localStorage.getItem("completedShoppingItems");
     return savedCompletedItems ? JSON.parse(savedCompletedItems) : [];
   });
+
+  function handleStartDateChange(event) {
+    const newStartDate = event.target.value;
+
+    setStartDate(newStartDate);
+
+    if (endDate && endDate < newStartDate) {
+      setEndDate("");
+    }
+  }
 
   function handleAddItem(event) {
     event.preventDefault();
@@ -73,20 +85,22 @@ function ShoppingList() {
   return (
     <section className="shopping-list">
       <h2>Liste de courses</h2>
-      <label>
+      <label className="shopping-date">
         Du :
         <input
           type="date"
           value={startDate}
-          onChange={(event) => setStartDate(event.target.value)}
+          min={todayKey}
+          onChange={handleStartDateChange}
         />
       </label>
-      <label>
+      <label className="shopping-date">
         Au :
         <input
           type="date"
           value={endDate}
           min={startDate}
+          disabled={!startDate}
           onChange={(event) => setEndDate(event.target.value)}
         />
       </label>
