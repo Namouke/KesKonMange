@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import "./ShoppingList.css";
-import { formatDateKey, getWeekDate } from "../utiles/weekUtils";
 
-function ShoppingList({ weekOffset }) {
-  const weekKey = formatDateKey(getWeekDate(weekOffset));
+function ShoppingList() {
   const [newItem, setNewItem] = useState("");
+  const [startDate, setStartDate] = useState(
+    () => localStorage.getItem("shoppingStartDate") || "",
+  );
+
+  const [endDate, setEndDate] = useState(
+    () => localStorage.getItem("shoppingEndDate") || "",
+  );
   const [items, setItems] = useState(() => {
-    const savedItems = localStorage.getItem(`shoppingItems-${weekKey}`);
+    const savedItems = localStorage.getItem("shoppingItems");
     return savedItems ? JSON.parse(savedItems) : [];
   });
   const [completedItems, setCompletedItems] = useState(() => {
-    const savedCompletedItems = localStorage.getItem(
-      `completedShoppingItems-${weekKey}`,
-    );
+    const savedCompletedItems = localStorage.getItem("completedShoppingItems");
     return savedCompletedItems ? JSON.parse(savedCompletedItems) : [];
   });
 
@@ -44,25 +47,49 @@ function ShoppingList({ weekOffset }) {
     if (shouldClear) {
       setItems([]);
       setCompletedItems([]);
+      setStartDate("");
+      setEndDate("");
     }
   }
 
   useEffect(() => {
-    localStorage.setItem(`shoppingItems-${weekKey}`, JSON.stringify(items));
-  }, [items, weekKey]);
+    localStorage.setItem("shoppingItems", JSON.stringify(items));
+  }, [items]);
 
   useEffect(() => {
     localStorage.setItem(
-      `completedShoppingItems-${weekKey}`,
+      "completedShoppingItems",
       JSON.stringify(completedItems),
     );
-  }, [completedItems, weekKey]);
+  }, [completedItems]);
+
+  useEffect(() => {
+    localStorage.setItem("shoppingStartDate", startDate);
+    localStorage.setItem("shoppingEndDate", endDate);
+  }, [startDate, endDate]);
 
   const completedCount = completedItems.length;
 
   return (
     <section className="shopping-list">
       <h2>Liste de courses</h2>
+      <label>
+        Du :
+        <input
+          type="date"
+          value={startDate}
+          onChange={(event) => setStartDate(event.target.value)}
+        />
+      </label>
+      <label>
+        Au :
+        <input
+          type="date"
+          value={endDate}
+          min={startDate}
+          onChange={(event) => setEndDate(event.target.value)}
+        />
+      </label>
       <p>
         {completedCount} article{completedCount > 1 ? "s" : ""} acheté
         {completedCount > 1 ? "s" : ""} sur {items.length}

@@ -9,7 +9,7 @@ function Home({ onLogout }) {
       <h1>KesKonMange</h1>
       <p>Bienvenue dans ton espace de partage de menus.</p>
       <WeeklyMenu weekOffset={weekOffset} setWeekOffset={setWeekOffset} />
-      <ShoppingList key={weekOffset} weekOffset={weekOffset} />
+      <ShoppingList />
       <button type="button" onClick={onLogout}>
         Se déconnecter
       </button>
