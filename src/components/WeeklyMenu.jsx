@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./WeeklyMenu.css";
+import { formatDateKey, getWeekDate } from "../utiles/weekUtils";
 
 function WeeklyMenu({ weekOffset, setWeekOffset }) {
   const days = [
@@ -18,25 +19,14 @@ function WeeklyMenu({ weekOffset, setWeekOffset }) {
   });
 
   function getDayDateObject(index) {
-    const today = new Date();
-    const currentDay = today.getDay();
-    const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
-
-    const date = new Date(today);
-    date.setDate(today.getDate() + mondayOffset + index + weekOffset * 7);
-
-    return date;
+    return getWeekDate(weekOffset, index);
   }
 
   function getMenuKey(day) {
     const dayIndex = days.indexOf(day);
     const date = getDayDateObject(dayIndex);
 
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const dayNumber = String(date.getDate()).padStart(2, "0");
-
-    return `${year}-${month}-${dayNumber}`;
+    return formatDateKey(date);
   }
 
   function getMenuValue(day, meal) {

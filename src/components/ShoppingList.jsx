@@ -1,23 +1,9 @@
 import { useEffect, useState } from "react";
 import "./ShoppingList.css";
-
-function getWeekKey(weekOffset) {
-  const today = new Date();
-  const currentDay = today.getDay();
-  const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
-
-  const monday = new Date(today);
-  monday.setDate(today.getDate() + mondayOffset + weekOffset * 7);
-
-  const year = monday.getFullYear();
-  const month = String(monday.getMonth() + 1).padStart(2, "0");
-  const day = String(monday.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-}
+import { formatDateKey, getWeekDate } from "../utiles/weekUtils";
 
 function ShoppingList({ weekOffset }) {
-  const weekKey = getWeekKey(weekOffset);
+  const weekKey = formatDateKey(getWeekDate(weekOffset));
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState(() => {
     const savedItems = localStorage.getItem(`shoppingItems-${weekKey}`);
