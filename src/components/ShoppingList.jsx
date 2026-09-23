@@ -39,6 +39,11 @@ function ShoppingList() {
     }
   }
 
+  const [shoppingHistory, setShoppingHistory] = useState(() => {
+    const savedHistory = localStorage.getItem("shoppingHistory");
+    return savedHistory ? JSON.parse(savedHistory) : [];
+  });
+
   function handleAddItem(event) {
     event.preventDefault();
     if (newItem.trim() === "") {
@@ -59,17 +64,28 @@ function ShoppingList() {
     }
   }
 
-  function handleClearList() {
-    const shouldClear = window.confirm(
-      "Voulez-vous vraiment vider toute la liste de courses ?",
-    );
-
-    if (shouldClear) {
-      setItems([]);
-      setCompletedItems([]);
-      setStartDate("");
-      setEndDate("");
+  function handleArchiveList() {
+    if (!startDate || !endDate) {
+      window.alert("Sélectionne une date de début et une date de fin.");
+      return;
     }
+
+    const archivedList = {
+      id: Date.now(),
+      startDate: startDate,
+      endDate: endDate,
+      items: items.map((item, index) => ({
+        name: item,
+        completed: completedItems.includes(index),
+      })),
+    };
+
+    setShoppingHistory([...shoppingHistory, archivedList]);
+
+    setItems([]);
+    setCompletedItems([]);
+    setStartDate("");
+    setEndDate("");
   }
 
   useEffect(() => {
@@ -87,6 +103,10 @@ function ShoppingList() {
     localStorage.setItem("shoppingStartDate", startDate);
     localStorage.setItem("shoppingEndDate", endDate);
   }, [startDate, endDate]);
+
+  useEffect(() => {
+    localStorage.setItem("shoppingHistory", JSON.stringify(shoppingHistory));
+  }, [shoppingHistory]);
 
   const completedCount = completedItems.length;
 
@@ -151,9 +171,35 @@ function ShoppingList() {
         ))}
       </ul>
       {items.length > 0 && (
-        <button type="button" onClick={handleClearList}>
-          Vider la liste
+        <button type="button" onClick={handleArchiveList}>
+          Terminer et archiver la liste
         </button>
+      )}
+      {shoppingHistory.length > 0 && (
+        <div>
+          <h3>Historique des courses</h3>
+
+          {shoppingHistory.map((list) => (
+            <article key={list.id}>
+              <details>
+                <summary>
+                  Du {formatDisplayDate(list.startDate)} au{" "}
+                  {formatDisplayDate(list.endDate)}
+                </summary>
+
+                <ul>
+                  {list.items.map((item, index) => (
+                    <li key={`${list.id}-${index}`}>
+                      <span className={item.completed ? "completed" : ""}>
+                        {item.name}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </article>
+          ))}
+        </div>
       )}
     </section>
   );
