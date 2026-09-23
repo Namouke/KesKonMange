@@ -2,6 +2,14 @@ import { useEffect, useState } from "react";
 import "./ShoppingList.css";
 import { formatDateKey } from "../utiles/weekUtils";
 
+function formatDisplayDate(date) {
+  return new Date(`${date}T00:00:00`).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
 function ShoppingList() {
   const todayKey = formatDateKey(new Date());
   const [newItem, setNewItem] = useState("");
@@ -104,6 +112,12 @@ function ShoppingList() {
           onChange={(event) => setEndDate(event.target.value)}
         />
       </label>
+      {startDate && endDate && (
+        <p>
+          Courses prévues du {formatDisplayDate(startDate)} au{" "}
+          {formatDisplayDate(endDate)}
+        </p>
+      )}
       <p>
         {completedCount} article{completedCount > 1 ? "s" : ""} acheté
         {completedCount > 1 ? "s" : ""} sur {items.length}
