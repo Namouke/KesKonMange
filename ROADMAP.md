@@ -1,23 +1,39 @@
 # 🗺️ KesKonMange — Roadmap
 
-## ✅ Terminé
+## ✅ Déjà fonctionnel
 
-- [x] Connexion et déconnexion simulées
-- [x] Menus hebdomadaires
-- [x] Liste de courses
-- [x] Persistance avec localStorage
-- [x] Période personnalisée pour les courses
+- [x] Sauvegarder automatiquement la liste en cours
+- [x] Terminer et archiver une liste
+- [x] Afficher ou masquer le détail d’une archive
+- [x] Dupliquer une ancienne liste
 
-## 🚧 En cours
+## 🚧 Objectif actuel : première version de l’historique
 
-- [✅] Historique des listes de courses
-- [✅ ] Affichage repliable des anciennes listes
+### Accès
 
-## 💡 Prévu
+- [ ] Ajouter un bouton « Historique des courses »
+- [ ] Afficher l’historique dans une vue dédiée
+- [ ] Ne plus afficher l’historique sous la liste actuelle
+- [ ] Ajouter un bouton pour revenir à la liste actuelle
 
-- [x] Créer une liste rapide sans dates
-- [ ] Dupliquer une ancienne liste
-- [ ] Ajouter des articles récurrents
-- [ ] Partager une liste entre plusieurs comptes
-- [ ] Synchroniser les modifications
-- [ ] Ajouter des notifications
+### Affichage
+
+- [ ] Afficher les archives les plus récentes en premier
+- [ ] Afficher immédiatement la dernière archive
+- [ ] Laisser les anciennes archives accessibles au clic
+
+### Fin des courses
+
+- [ ] Remplacer « Terminer et archiver la liste » par « Terminer les courses »
+- [ ] Vérifier qu’une liste terminée est enregistrée dans l’historique
+- [ ] Vérifier que l’historique reste présent après actualisation
+
+## ⏭️ Après cette première version
+
+- [ ] Ajouter une action « Créer une nouvelle liste »
+- [ ] Archiver une liste précédente comme incomplète
+- [ ] Demander confirmation avant de remplacer une liste active
+- [ ] Enregistrer la date et l’heure exactes
+- [ ] Classer les archives par année, mois et jour
+- [ ] Ajouter la suppression définitive d’une archive
+- [ ] Ajouter une confirmation avant la suppression
