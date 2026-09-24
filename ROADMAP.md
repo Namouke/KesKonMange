@@ -15,7 +15,7 @@
 
 ## 💡 Prévu
 
-- [ ] Créer une liste rapide sans dates
+- [x] Créer une liste rapide sans dates
 - [ ] Dupliquer une ancienne liste
 - [ ] Ajouter des articles récurrents
 - [ ] Partager une liste entre plusieurs comptes
