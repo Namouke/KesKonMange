@@ -65,13 +65,16 @@ function ShoppingList() {
   }
 
   function handleArchiveList() {
-    if (!startDate || !endDate) {
-      window.alert("Sélectionne une date de début et une date de fin.");
+    if ((startDate && !endDate) || (!startDate && endDate)) {
+      window.alert(
+        "Sélectionne les deux dates pour créer une période complète.",
+      );
       return;
     }
 
     const archivedList = {
       id: Date.now(),
+      createdAt: todayKey,
       startDate: startDate,
       endDate: endDate,
       items: items.map((item, index) => ({
@@ -183,8 +186,11 @@ function ShoppingList() {
             <article key={list.id}>
               <details>
                 <summary>
-                  Du {formatDisplayDate(list.startDate)} au{" "}
-                  {formatDisplayDate(list.endDate)}
+                  {list.startDate && list.endDate
+                    ? `Du ${formatDisplayDate(list.startDate)} au ${formatDisplayDate(
+                        list.endDate,
+                      )}`
+                    : `Liste rapide du ${formatDisplayDate(list.createdAt)}`}
                 </summary>
 
                 <ul>

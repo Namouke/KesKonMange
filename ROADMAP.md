@@ -10,8 +10,8 @@
 
 ## 🚧 En cours
 
-- [ ] Historique des listes de courses
-- [ ] Affichage repliable des anciennes listes
+- [✅] Historique des listes de courses
+- [✅ ] Affichage repliable des anciennes listes
 
 ## 💡 Prévu
 
