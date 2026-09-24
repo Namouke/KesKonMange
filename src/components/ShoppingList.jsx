@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ShoppingList.css";
+import ShoppingHistory from "./ShoppingHistory";
 import { formatDateKey, formatDisplayDate } from "../utiles/dateUtils";
 
 function ShoppingList() {
@@ -189,38 +190,10 @@ function ShoppingList() {
           Terminer et archiver la liste
         </button>
       )}
-      {shoppingHistory.length > 0 && (
-        <div>
-          <h3>Historique des courses</h3>
-
-          {shoppingHistory.map((list) => (
-            <article key={list.id}>
-              <details>
-                <summary>
-                  {list.startDate && list.endDate
-                    ? `Du ${formatDisplayDate(list.startDate)} au ${formatDisplayDate(
-                        list.endDate,
-                      )}`
-                    : `Liste rapide du ${formatDisplayDate(list.createdAt)}`}
-                </summary>
-
-                <ul>
-                  {list.items.map((item, index) => (
-                    <li key={`${list.id}-${index}`}>
-                      <span className={item.completed ? "completed" : ""}>
-                        {item.name}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <button type="button" onClick={() => handleDuplicateList(list)}>
-                  Dupliquer cette liste
-                </button>
-              </details>
-            </article>
-          ))}
-        </div>
-      )}
+      <ShoppingHistory
+        shoppingHistory={shoppingHistory}
+        onDuplicateList={handleDuplicateList}
+      />
     </section>
   );
 }
