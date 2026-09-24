@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "./ShoppingList.css";
 import ShoppingHistory from "./ShoppingHistory";
-import { formatDateKey, formatDisplayDate } from "../utiles/dateUtils";
+import ShoppingPeriod from "./ShoppingPeriod";
+import { formatDateKey } from "../utiles/dateUtils";
 
 function ShoppingList() {
   const todayKey = formatDateKey(new Date());
@@ -128,31 +129,13 @@ function ShoppingList() {
   return (
     <section className="shopping-list">
       <h2>Liste de courses</h2>
-      <label className="shopping-date">
-        Du :
-        <input
-          type="date"
-          value={startDate}
-          min={todayKey}
-          onChange={handleStartDateChange}
-        />
-      </label>
-      <label className="shopping-date">
-        Au :
-        <input
-          type="date"
-          value={endDate}
-          min={startDate}
-          disabled={!startDate}
-          onChange={(event) => setEndDate(event.target.value)}
-        />
-      </label>
-      {startDate && endDate && (
-        <p>
-          Courses prévues du {formatDisplayDate(startDate)} au{" "}
-          {formatDisplayDate(endDate)}
-        </p>
-      )}
+      <ShoppingPeriod
+        startDate={startDate}
+        endDate={endDate}
+        todayKey={todayKey}
+        onStartDateChange={handleStartDateChange}
+        onEndDateChange={setEndDate}
+      />
       <p>
         {completedCount} article{completedCount > 1 ? "s" : ""} acheté
         {completedCount > 1 ? "s" : ""} sur {items.length}
