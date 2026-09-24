@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ShoppingList.css";
-import { formatDateKey } from "../utiles/weekUtils";
-
-function formatDisplayDate(date) {
-  return new Date(`${date}T00:00:00`).toLocaleDateString("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
+import { formatDateKey, formatDisplayDate } from "../utiles/dateUtils";
 
 function ShoppingList() {
   const todayKey = formatDateKey(new Date());
