@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Route, Routes } from "react-router";
+import ShoppingHistoryPage from "./pages/ShoppingHistoryPage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 
@@ -17,10 +19,15 @@ function App() {
     localStorage.removeItem("isLoggedIn");
   }
 
-  return isLoggedIn ? (
-    <Home onLogout={handleLogout} />
-  ) : (
-    <Login onLogin={handleLogin} />
+  if (!isLoggedIn) {
+    return <Login onLogin={handleLogin} />;
+  }
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home onLogout={handleLogout} />} />
+      <Route path="/historique" element={<ShoppingHistoryPage />} />
+    </Routes>
   );
 }
 
