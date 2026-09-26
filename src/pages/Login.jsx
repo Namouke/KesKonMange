@@ -1,15 +1,14 @@
+import { useState } from "react";
 
-import { useState } from 'react'
-
-function Login( { onLogin }) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+function Login({ onLogin }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   function handleSubmit(event) {
-  event.preventDefault()
+    event.preventDefault();
 
-  onLogin()
-}
+    onLogin();
+  }
 
   return (
     <main>
@@ -37,7 +36,7 @@ function Login( { onLogin }) {
         <button type="submit">Se connecter</button>
       </form>
     </main>
-  )
+  );
 }
 
-export default Login
+export default Login;
