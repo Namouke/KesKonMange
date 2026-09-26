@@ -11,10 +11,10 @@
 
 ### Accès
 
-- [ ] Ajouter un bouton « Historique des courses »
-- [ ] Afficher l’historique dans une vue dédiée
+- [x] Ajouter un bouton « Historique des courses »
+- [x] Afficher l’historique dans une vue dédiée
 - [ ] Ne plus afficher l’historique sous la liste actuelle
-- [ ] Ajouter un bouton pour revenir à la liste actuelle
+- [x] Ajouter un bouton pour revenir à la liste actuelle
 
 ### Affichage
 
