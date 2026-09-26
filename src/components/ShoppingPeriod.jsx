@@ -1,4 +1,4 @@
-import { formatDisplayDate } from "../utiles/dateUtils";
+import { formatDisplayDate } from "../utils/dateUtils";
 
 function ShoppingPeriod({
   startDate,

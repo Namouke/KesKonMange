@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./WeeklyMenu.css";
-import { formatDateKey } from "../utiles/dateUtils";
-import { getWeekDate } from "../utiles/weekUtils";
+import { formatDateKey } from "../utils/dateUtils";
+import { getWeekDate } from "../utils/weekUtils";
 
 function WeeklyMenu({ weekOffset, setWeekOffset }) {
   const days = [

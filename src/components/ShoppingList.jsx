@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ShoppingList.css";
 import ShoppingPeriod from "./ShoppingPeriod";
-import { formatDateKey } from "../utiles/dateUtils";
+import { formatDateKey } from "../utils/dateUtils";
 
 function ShoppingList() {
   const todayKey = formatDateKey(new Date());
