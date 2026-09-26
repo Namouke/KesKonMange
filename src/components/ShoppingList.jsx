@@ -150,7 +150,7 @@ function ShoppingList() {
       </ul>
       {items.length > 0 && (
         <button type="button" onClick={handleArchiveList}>
-          Terminer et archiver la liste
+          Terminer les courses
         </button>
       )}
     </section>
