@@ -30,9 +30,11 @@ function ShoppingHistory({ shoppingHistory, onDuplicateList }) {
               ))}
             </ul>
 
-            <button type="button" onClick={() => onDuplicateList(list)}>
-              Dupliquer cette liste
-            </button>
+            {onDuplicateList && (
+              <button type="button" onClick={() => onDuplicateList(list)}>
+                Dupliquer cette liste
+              </button>
+            )}
           </details>
         </article>
       ))}
