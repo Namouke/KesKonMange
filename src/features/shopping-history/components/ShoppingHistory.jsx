@@ -1,4 +1,4 @@
-import { formatDisplayDate } from "../utiles/dateUtils";
+import { formatDisplayDate } from "../../../utiles/dateUtils";
 
 function ShoppingHistory({ shoppingHistory, onDuplicateList }) {
   if (shoppingHistory.length === 0) {

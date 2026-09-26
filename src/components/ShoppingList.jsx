@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ShoppingList.css";
-import ShoppingHistory from "./ShoppingHistory";
+import ShoppingHistory from "../features/shopping-history/components/ShoppingHistory";
 import ShoppingPeriod from "./ShoppingPeriod";
 import { formatDateKey } from "../utiles/dateUtils";
 

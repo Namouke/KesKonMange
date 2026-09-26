@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import useShoppingHistory from "../features/shopping-history/hooks/useShoppingHistory";
-import ShoppingHistory from "../components/ShoppingHistory";
+import ShoppingHistory from "../features/shopping-history/components/ShoppingHistory";
 
 function ShoppingHistoryPage() {
   const { shoppingHistory } = useShoppingHistory();
