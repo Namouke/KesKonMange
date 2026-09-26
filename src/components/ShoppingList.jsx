@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./ShoppingList.css";
-import ShoppingHistory from "../features/shopping-history/components/ShoppingHistory";
 import ShoppingPeriod from "./ShoppingPeriod";
 import { formatDateKey } from "../utiles/dateUtils";
 
@@ -85,25 +84,6 @@ function ShoppingList() {
     setEndDate("");
   }
 
-  function handleDuplicateList(list) {
-    if (items.length > 0) {
-      const shouldReplace = window.confirm(
-        "La liste actuelle contient déjà des articles. Voulez-vous la remplacer ?",
-      );
-
-      if (!shouldReplace) {
-        return;
-      }
-    }
-
-    const duplicatedItems = list.items.map((item) => item.name);
-
-    setItems(duplicatedItems);
-    setCompletedItems([]);
-    setStartDate("");
-    setEndDate("");
-  }
-
   useEffect(() => {
     localStorage.setItem("shoppingItems", JSON.stringify(items));
   }, [items]);
@@ -173,10 +153,6 @@ function ShoppingList() {
           Terminer et archiver la liste
         </button>
       )}
-      <ShoppingHistory
-        shoppingHistory={shoppingHistory}
-        onDuplicateList={handleDuplicateList}
-      />
     </section>
   );
 }

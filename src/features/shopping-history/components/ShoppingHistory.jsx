@@ -7,8 +7,6 @@ function ShoppingHistory({ shoppingHistory, onDuplicateList }) {
 
   return (
     <div>
-      <h3>Historique des courses</h3>
-
       {shoppingHistory.map((list) => (
         <article key={list.id}>
           <details>
