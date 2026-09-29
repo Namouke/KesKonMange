@@ -3,7 +3,9 @@ import "./WeeklyMenu.css";
 import { formatDateKey } from "../utils/dateUtils";
 import { getWeekDate } from "../utils/weekUtils";
 
-function WeeklyMenu({ weekOffset, setWeekOffset }) {
+function WeeklyMenu() {
+  const [weekOffset, setWeekOffset] = useState(0);
+
   const days = [
     "Lundi",
     "Mardi",
