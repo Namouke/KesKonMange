@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import "./ShoppingList.css";
 import ShoppingPeriod from "./ShoppingPeriod";
 import { formatDateKey } from "../utils/dateUtils";
+import useShoppingHistory from "../features/shopping-history/hooks/useShoppingHistory";
 
 function ShoppingList() {
   const todayKey = formatDateKey(new Date());
+  const { archiveShoppingList } = useShoppingHistory();
   const [newItem, setNewItem] = useState("");
   const [startDate, setStartDate] = useState(
     () => localStorage.getItem("shoppingStartDate") || "",
@@ -31,11 +33,6 @@ function ShoppingList() {
       setEndDate("");
     }
   }
-
-  const [shoppingHistory, setShoppingHistory] = useState(() => {
-    const savedHistory = localStorage.getItem("shoppingHistory");
-    return savedHistory ? JSON.parse(savedHistory) : [];
-  });
 
   function handleAddItem(event) {
     event.preventDefault();
@@ -76,7 +73,7 @@ function ShoppingList() {
       })),
     };
 
-    setShoppingHistory([...shoppingHistory, archivedList]);
+    archiveShoppingList(archivedList);
 
     setItems([]);
     setCompletedItems([]);
@@ -99,10 +96,6 @@ function ShoppingList() {
     localStorage.setItem("shoppingStartDate", startDate);
     localStorage.setItem("shoppingEndDate", endDate);
   }, [startDate, endDate]);
-
-  useEffect(() => {
-    localStorage.setItem("shoppingHistory", JSON.stringify(shoppingHistory));
-  }, [shoppingHistory]);
 
   const completedCount = completedItems.length;
 
