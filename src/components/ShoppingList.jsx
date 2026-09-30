@@ -3,7 +3,7 @@ import "./ShoppingList.css";
 import ShoppingPeriod from "./ShoppingPeriod";
 import { formatDateKey } from "../utils/dateUtils";
 import useShoppingHistory from "../features/shopping-history/hooks/useShoppingHistory";
-import useShoppingItems from "../features/shopping-list/components/hooks/useShoppingItems";
+import useShoppingItems from "../features/shopping-list/hooks/useShoppingItems";
 
 function ShoppingList() {
   const todayKey = formatDateKey(new Date());
@@ -64,17 +64,6 @@ function ShoppingList() {
     setStartDate("");
     setEndDate("");
   }
-
-  useEffect(() => {
-    localStorage.setItem("shoppingItems", JSON.stringify(items));
-  }, [items]);
-
-  useEffect(() => {
-    localStorage.setItem(
-      "completedShoppingItems",
-      JSON.stringify(completedItems),
-    );
-  }, [completedItems]);
 
   useEffect(() => {
     localStorage.setItem("shoppingStartDate", startDate);

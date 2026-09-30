@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function useShoppingItems() {
   const [newItem, setNewItem] = useState("");
@@ -34,6 +34,17 @@ function useShoppingItems() {
       setCompletedItems([...completedItems, index]);
     }
   }
+
+  useEffect(() => {
+    localStorage.setItem("shoppingItems", JSON.stringify(items));
+  }, [items]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "completedShoppingItems",
+      JSON.stringify(completedItems),
+    );
+  }, [completedItems]);
 
   const completedCount = completedItems.length;
 
