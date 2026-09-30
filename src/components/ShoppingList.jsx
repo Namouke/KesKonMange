@@ -3,26 +3,30 @@ import "./ShoppingList.css";
 import ShoppingPeriod from "./ShoppingPeriod";
 import { formatDateKey } from "../utils/dateUtils";
 import useShoppingHistory from "../features/shopping-history/hooks/useShoppingHistory";
+import useShoppingItems from "../features/shopping-list/components/hooks/useShoppingItems";
 
 function ShoppingList() {
   const todayKey = formatDateKey(new Date());
   const { archiveShoppingList } = useShoppingHistory();
-  const [newItem, setNewItem] = useState("");
   const [startDate, setStartDate] = useState(
     () => localStorage.getItem("shoppingStartDate") || "",
   );
 
+  const {
+    newItem,
+    setNewItem,
+    items,
+    setItems,
+    completedItems,
+    setCompletedItems,
+    handleAddItem,
+    handleToggleItem,
+    completedCount,
+  } = useShoppingItems();
+
   const [endDate, setEndDate] = useState(
     () => localStorage.getItem("shoppingEndDate") || "",
   );
-  const [items, setItems] = useState(() => {
-    const savedItems = localStorage.getItem("shoppingItems");
-    return savedItems ? JSON.parse(savedItems) : [];
-  });
-  const [completedItems, setCompletedItems] = useState(() => {
-    const savedCompletedItems = localStorage.getItem("completedShoppingItems");
-    return savedCompletedItems ? JSON.parse(savedCompletedItems) : [];
-  });
 
   function handleStartDateChange(event) {
     const newStartDate = event.target.value;
@@ -31,26 +35,6 @@ function ShoppingList() {
 
     if (endDate && endDate < newStartDate) {
       setEndDate("");
-    }
-  }
-
-  function handleAddItem(event) {
-    event.preventDefault();
-    if (newItem.trim() === "") {
-      return;
-    }
-
-    setItems([...items, newItem]);
-    setNewItem("");
-  }
-
-  function handleToggleItem(index) {
-    if (completedItems.includes(index)) {
-      setCompletedItems(
-        completedItems.filter((completedIndex) => completedIndex !== index),
-      );
-    } else {
-      setCompletedItems([...completedItems, index]);
     }
   }
 
@@ -96,8 +80,6 @@ function ShoppingList() {
     localStorage.setItem("shoppingStartDate", startDate);
     localStorage.setItem("shoppingEndDate", endDate);
   }, [startDate, endDate]);
-
-  const completedCount = completedItems.length;
 
   return (
     <section className="shopping-list">
