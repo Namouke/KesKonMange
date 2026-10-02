@@ -35,6 +35,11 @@ function useShoppingItems() {
     }
   }
 
+  function resetShoppingItems() {
+    setItems([]);
+    setCompletedItems([]);
+  }
+
   useEffect(() => {
     localStorage.setItem("shoppingItems", JSON.stringify(items));
   }, [items]);
@@ -52,12 +57,11 @@ function useShoppingItems() {
     newItem,
     setNewItem,
     items,
-    setItems,
     completedItems,
-    setCompletedItems,
     handleAddItem,
     handleToggleItem,
     completedCount,
+    resetShoppingItems,
   };
 }
 

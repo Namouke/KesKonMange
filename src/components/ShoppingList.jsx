@@ -16,12 +16,11 @@ function ShoppingList() {
     newItem,
     setNewItem,
     items,
-    setItems,
     completedItems,
-    setCompletedItems,
     handleAddItem,
     handleToggleItem,
     completedCount,
+    resetShoppingItems,
   } = useShoppingItems();
 
   const [endDate, setEndDate] = useState(
@@ -59,8 +58,7 @@ function ShoppingList() {
 
     archiveShoppingList(archivedList);
 
-    setItems([]);
-    setCompletedItems([]);
+    resetShoppingItems();
     setStartDate("");
     setEndDate("");
   }
