@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
 import "./ShoppingList.css";
 import ShoppingPeriod from "./ShoppingPeriod";
 import { formatDateKey } from "../utils/dateUtils";
 import useShoppingHistory from "../features/shopping-history/hooks/useShoppingHistory";
 import useShoppingItems from "../features/shopping-list/hooks/useShoppingItems";
+import useShoppingPeriod from "../features/shopping-list/hooks/useShoppingPeriod";
 
 function ShoppingList() {
   const todayKey = formatDateKey(new Date());
   const { archiveShoppingList } = useShoppingHistory();
-  const [startDate, setStartDate] = useState(
-    () => localStorage.getItem("shoppingStartDate") || "",
-  );
 
   const {
     newItem,
@@ -23,19 +20,13 @@ function ShoppingList() {
     resetShoppingItems,
   } = useShoppingItems();
 
-  const [endDate, setEndDate] = useState(
-    () => localStorage.getItem("shoppingEndDate") || "",
-  );
-
-  function handleStartDateChange(event) {
-    const newStartDate = event.target.value;
-
-    setStartDate(newStartDate);
-
-    if (endDate && endDate < newStartDate) {
-      setEndDate("");
-    }
-  }
+  const {
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    handleStartDateChange,
+  } = useShoppingPeriod();
 
   function handleArchiveList() {
     if ((startDate && !endDate) || (!startDate && endDate)) {
@@ -62,11 +53,6 @@ function ShoppingList() {
     setStartDate("");
     setEndDate("");
   }
-
-  useEffect(() => {
-    localStorage.setItem("shoppingStartDate", startDate);
-    localStorage.setItem("shoppingEndDate", endDate);
-  }, [startDate, endDate]);
 
   return (
     <section className="shopping-list">
