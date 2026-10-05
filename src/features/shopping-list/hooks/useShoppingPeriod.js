@@ -19,6 +19,11 @@ function useShoppingPeriod() {
     }
   }
 
+  function resetShoppingPeriod() {
+    setStartDate("");
+    setEndDate("");
+  }
+
   useEffect(() => {
     localStorage.setItem("shoppingStartDate", startDate);
     localStorage.setItem("shoppingEndDate", endDate);
@@ -30,6 +35,7 @@ function useShoppingPeriod() {
     endDate,
     setEndDate,
     handleStartDateChange,
+    resetShoppingPeriod,
   };
 }
 

@@ -22,10 +22,10 @@ function ShoppingList() {
 
   const {
     startDate,
-    setStartDate,
     endDate,
     setEndDate,
     handleStartDateChange,
+    resetShoppingPeriod,
   } = useShoppingPeriod();
 
   function handleArchiveList() {
@@ -50,8 +50,7 @@ function ShoppingList() {
     archiveShoppingList(archivedList);
 
     resetShoppingItems();
-    setStartDate("");
-    setEndDate("");
+    resetShoppingPeriod();
   }
 
   return (
