@@ -23,8 +23,8 @@ function ShoppingList() {
   const {
     startDate,
     endDate,
-    setEndDate,
     handleStartDateChange,
+    handleEndDateChange,
     resetShoppingPeriod,
   } = useShoppingPeriod();
 
@@ -61,7 +61,7 @@ function ShoppingList() {
         endDate={endDate}
         todayKey={todayKey}
         onStartDateChange={handleStartDateChange}
-        onEndDateChange={setEndDate}
+        onEndDateChange={handleEndDateChange}
       />
       <p>
         {completedCount} article{completedCount > 1 ? "s" : ""} acheté

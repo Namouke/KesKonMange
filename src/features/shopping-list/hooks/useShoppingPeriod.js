@@ -19,6 +19,10 @@ function useShoppingPeriod() {
     }
   }
 
+  function handleEndDateChange(value) {
+    setEndDate(value);
+  }
+
   function resetShoppingPeriod() {
     setStartDate("");
     setEndDate("");
@@ -33,9 +37,9 @@ function useShoppingPeriod() {
     startDate,
     setStartDate,
     endDate,
-    setEndDate,
     handleStartDateChange,
     resetShoppingPeriod,
+    handleEndDateChange,
   };
 }
 
