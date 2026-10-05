@@ -16,6 +16,7 @@ function ShoppingList() {
     completedItems,
     handleAddItem,
     handleToggleItem,
+    handleDeleteItem,
     completedCount,
     resetShoppingItems,
   } = useShoppingItems();
@@ -79,7 +80,7 @@ function ShoppingList() {
       {items.length === 0 && <p>La liste de courses est vide.</p>}
       <ul>
         {items.map((item, index) => (
-          <li key={`${item}-${index}`}>
+          <li className="shopping-item" key={`${item}-${index}`}>
             <label>
               <input
                 type="checkbox"
@@ -92,6 +93,13 @@ function ShoppingList() {
                 {item}
               </span>
             </label>
+            <button
+              className="delete-item-button"
+              type="button"
+              onClick={() => handleDeleteItem(index)}
+            >
+              Supprimer
+            </button>
           </li>
         ))}
       </ul>

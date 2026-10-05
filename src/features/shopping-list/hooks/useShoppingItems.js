@@ -35,6 +35,16 @@ function useShoppingItems() {
     }
   }
 
+  function handleDeleteItem(indexToDelete) {
+    setItems(items.filter((_, index) => index !== indexToDelete));
+
+    setCompletedItems(
+      completedItems
+        .filter((index) => index !== indexToDelete)
+        .map((index) => (index > indexToDelete ? index - 1 : index)),
+    );
+  }
+
   function resetShoppingItems() {
     setItems([]);
     setCompletedItems([]);
@@ -60,6 +70,7 @@ function useShoppingItems() {
     completedItems,
     handleAddItem,
     handleToggleItem,
+    handleDeleteItem,
     completedCount,
     resetShoppingItems,
   };

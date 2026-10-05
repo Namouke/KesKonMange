@@ -30,3 +30,20 @@
   gap: 8px;
   margin-bottom: 8px;
 }
+
+.shopping-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-item-button {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.shopping-list li:hover .delete-item-button,
+.shopping-list li:focus-within .delete-item-button {
+  opacity: 1;
+  pointer-events: auto;
+}
