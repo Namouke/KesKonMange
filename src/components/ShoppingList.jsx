@@ -1,5 +1,5 @@
 import "./ShoppingList.css";
-import ShoppingPeriod from "./ShoppingPeriod";
+import ShoppingPeriod from "../features/shopping-list/components/ShoppingPeriod";
 import { formatDateKey } from "../utils/dateUtils";
 import useShoppingHistory from "../features/shopping-history/hooks/useShoppingHistory";
 import useShoppingItems from "../features/shopping-list/hooks/useShoppingItems";
