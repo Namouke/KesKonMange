@@ -79,6 +79,11 @@ router.post("/login", async (req, res) => {
 
   res.status(200).json({
     message: "Connexion réussie",
+    user: {
+      id: user._id,
+      email: user.email,
+      username: user.username,
+    },
   });
 });
 
