@@ -10,7 +10,9 @@ app.get("/", (req, res) => {
   res.send("Backend KesKonMange OK");
 });
 
-await connectToDatabase();
+const database = await connectToDatabase();
+
+app.locals.database = database;
 
 app.listen(3000, () => {
   console.log("Serveur démarré sur le port 3000");
