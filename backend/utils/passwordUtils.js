@@ -6,4 +6,9 @@ async function hashPassword(password) {
   return bcrypt.hash(password, saltRounds);
 }
 
+async function comparePassword(password, passwordHash) {
+  return bcrypt.compare(password, passwordHash);
+}
+
+export { comparePassword };
 export default hashPassword;
