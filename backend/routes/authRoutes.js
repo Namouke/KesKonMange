@@ -18,6 +18,12 @@ router.post("/register", async (req, res) => {
     });
   }
 
+  if (password.length < 8) {
+    return res.status(400).json({
+      message: "Le mot de passe doit contenir au moins 8 caractères",
+    });
+  }
+
   const database = req.app.locals.database;
 
   const existingUser = await findUserByEmail(database, email);
