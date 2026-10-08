@@ -11,6 +11,13 @@ router.get("/test", (req, res) => {
 
 router.post("/register", async (req, res) => {
   const { email, password, username } = req.body;
+
+  if (!email || !password || !username) {
+    return res.status(400).json({
+      message: "Tous les champs sont obligatoires",
+    });
+  }
+
   const database = req.app.locals.database;
 
   const passwordHash = await hashPassword(password);
