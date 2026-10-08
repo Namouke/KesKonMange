@@ -1,7 +1,7 @@
 import express from "express";
 import createUserDocument from "../models/user.js";
 import hashPassword from "../utils/passwordUtils.js";
-import createUser from "../repositories/userRepository.js";
+import createUser, { findUserByEmail } from "../repositories/userRepository.js";
 
 const router = express.Router();
 
@@ -19,6 +19,14 @@ router.post("/register", async (req, res) => {
   }
 
   const database = req.app.locals.database;
+
+  const existingUser = await findUserByEmail(database, email);
+
+  if (existingUser) {
+    return res.status(409).json({
+      message: "Un compte existe déjà avec cet e-mail",
+    });
+  }
 
   const passwordHash = await hashPassword(password);
 
