@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-function Register() {
+function Register({ onRegisterSuccess }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -14,7 +14,25 @@ function Register() {
       return;
     }
 
-    window.alert("Les mots de passe correspondent.");
+    const response = await fetch("http://localhost:3000/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+
+    if (response.ok) {
+      onRegisterSuccess();
+    }
   }
 
   return (

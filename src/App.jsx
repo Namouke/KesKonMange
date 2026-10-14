@@ -24,7 +24,7 @@ function App() {
 
   if (!isLoggedIn) {
     return showRegister ? (
-      <Register />
+      <Register onRegisterSuccess={() => setShowRegister(false)} />
     ) : (
       <Login
         onLogin={handleLogin}
