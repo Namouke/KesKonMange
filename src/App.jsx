@@ -3,11 +3,14 @@ import { Route, Routes } from "react-router";
 import ShoppingHistoryPage from "./pages/ShoppingHistoryPage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("isLoggedIn") === "true",
   );
+
+  const [showRegister, setShowRegister] = useState(false);
 
   function handleLogin() {
     setIsLoggedIn(true);
@@ -20,7 +23,14 @@ function App() {
   }
 
   if (!isLoggedIn) {
-    return <Login onLogin={handleLogin} />;
+    return showRegister ? (
+      <Register />
+    ) : (
+      <Login
+        onLogin={handleLogin}
+        onShowRegister={() => setShowRegister(true)}
+      />
+    );
   }
 
   return (

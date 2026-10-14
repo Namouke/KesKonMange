@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Login({ onLogin }) {
+function Login({ onLogin, onShowRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -51,6 +51,10 @@ function Login({ onLogin }) {
         />
 
         <button type="submit">Se connecter</button>
+
+        <button type="button" onClick={onShowRegister}>
+          Créer un compte
+        </button>
       </form>
     </main>
   );
