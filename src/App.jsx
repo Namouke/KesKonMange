@@ -11,15 +11,25 @@ function App() {
     localStorage.getItem("isLoggedIn") === "true",
   );
 
-  function handleLogin() {
+  const [currentUser, setCurrentUser] = useState(() => {
+    const savedUser = localStorage.getItem("currentUser");
+
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  function handleLogin(user) {
+    console.log("Utilisateur connecté :", user);
+    setCurrentUser(user);
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("currentUser", JSON.stringify(user));
     navigate("/home");
   }
 
   function handleLogout() {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("currentUser");
     navigate("/login");
   }
 
@@ -49,8 +59,12 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" replace />} />
-      <Route path="/home" element={<Home onLogout={handleLogout} />} />
+      <Route
+        path="/home"
+        element={<Home onLogout={handleLogout} user={currentUser} />}
+      />
       <Route path="/historique" element={<ShoppingHistoryPage />} />
+      <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );
 }

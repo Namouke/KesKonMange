@@ -21,7 +21,7 @@ function Login({ onLogin, onShowRegister }) {
     const data = await response.json();
 
     if (response.ok) {
-      onLogin();
+      onLogin(data.user);
     }
 
     console.log(data);
